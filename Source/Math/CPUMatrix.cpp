@@ -847,7 +847,8 @@ void CPUMatrix<ElemType>::SetValue(const size_t numRows, const size_t numCols, E
     if (matrixFlags & matrixFlagDontOwnBuffer)
     {
         // free previous array allocation if any before overwriting
-        delete[] m_pArray;
+        if (m_pArray != nullptr)
+            delete[] m_pArray;
 
         m_pArray = pArray;
         m_numRows = numRows;
