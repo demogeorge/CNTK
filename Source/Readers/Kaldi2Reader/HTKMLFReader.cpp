@@ -673,41 +673,24 @@ void HTKMLFReader<ElemType>::PrepareForWriting(const ConfigRecordType& readerCon
 template <class ElemType>
 HTKMLFReader<ElemType>::~HTKMLFReader()
 {
-    if (m_mbiter != NULL)
-    {
-        delete m_mbiter;
-        m_mbiter = NULL;
-    }
-    if (m_frameSource != NULL)
-    {
-        delete m_frameSource;
-        m_frameSource = NULL;
-    }
-    if (m_lattices != NULL)
-    {
-        delete m_lattices;
-        m_lattices = NULL;
-    }
-    if (m_seqTrainDeriv != NULL)
-    {
-        delete m_seqTrainDeriv;
-        m_seqTrainDeriv = NULL;
-    }
-    if (m_uttDerivBuffer != NULL)
-    {
-        delete m_uttDerivBuffer;
-        m_uttDerivBuffer = NULL;
-    }
+    delete m_mbiter;
+    m_mbiter = NULL;
+    delete m_frameSource;
+    m_frameSource = NULL;
+    delete m_lattices;
+    m_lattices = NULL;
+    delete m_seqTrainDeriv;
+    m_seqTrainDeriv = NULL;
+    delete m_uttDerivBuffer;
+    m_uttDerivBuffer = NULL;
+    
 
     if (!m_featuresBufferMultiIO.empty())
     {
         foreach_index (i, m_featuresBufferMultiIO)
         {
-            if (m_featuresBufferMultiIO[i] != NULL)
-            {
-                delete[] m_featuresBufferMultiIO[i];
-                m_featuresBufferMultiIO[i] = NULL;
-            }
+            delete[] m_featuresBufferMultiIO[i];
+            m_featuresBufferMultiIO[i] = NULL;
         }
     }
 
@@ -715,44 +698,29 @@ HTKMLFReader<ElemType>::~HTKMLFReader()
     {
         foreach_index (i, m_labelsBufferMultiIO)
         {
-            if (m_labelsBufferMultiIO[i] != NULL)
-            {
-                delete[] m_labelsBufferMultiIO[i];
-                m_labelsBufferMultiIO[i] = NULL;
-            }
+            delete[] m_labelsBufferMultiIO[i];
+            m_labelsBufferMultiIO[i] = NULL;
         }
     }
 
     for (size_t i = 0; i < m_numberOfuttsPerMinibatch; i++)
     {
-        if (m_featuresBufferMultiUtt[i] != NULL)
-        {
-            delete[] m_featuresBufferMultiUtt[i];
-            m_featuresBufferMultiUtt[i] = NULL;
-        }
-        if (m_labelsBufferMultiUtt[i] != NULL)
-        {
-            delete[] m_labelsBufferMultiUtt[i];
-            m_labelsBufferMultiUtt[i] = NULL;
-        }
+        delete[] m_featuresBufferMultiUtt[i];
+        m_featuresBufferMultiUtt[i] = NULL;
+        delete[] m_labelsBufferMultiUtt[i];
+        m_labelsBufferMultiUtt[i] = NULL;
     }
 
     foreach_index (i, m_trainingOrTestingFeatureSections)
     {
-        if (m_trainingOrTestingFeatureSections[i] != NULL)
-        {
-            delete m_trainingOrTestingFeatureSections[i];
-            m_trainingOrTestingFeatureSections[i] = NULL;
-        }
+        delete m_trainingOrTestingFeatureSections[i];
+        m_trainingOrTestingFeatureSections[i] = NULL;
     }
 
     foreach_index (i, m_writingFeatureSections)
     {
-        if (m_writingFeatureSections[i] != NULL)
-        {
-            delete m_writingFeatureSections[i];
-            m_writingFeatureSections[i] = NULL;
-        }
+        delete m_writingFeatureSections[i];
+        m_writingFeatureSections[i] = NULL;
     }
 }
 
@@ -809,13 +777,10 @@ void HTKMLFReader<ElemType>::StartMinibatchLoopToTrainOrTest(size_t mbSize, size
     {
         requestedEpochSamples = totalFrames;
     }
-
     // Gets a new minibatch iterator.
-    if (m_mbiter != NULL)
-    {
-        delete m_mbiter;
-        m_mbiter = NULL;
-    }
+    delete m_mbiter;
+    m_mbiter = NULL;
+	
     msra::dbn::minibatchsource* source = m_frameSource;
     size_t currentMBSize = (m_framemode == true) ? mbSize : 1;
     m_mbiter = new msra::dbn::minibatchiterator(*source, epoch, requestedEpochSamples, currentMBSize, datapasses);

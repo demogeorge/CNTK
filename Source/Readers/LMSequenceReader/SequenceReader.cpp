@@ -765,14 +765,11 @@ SequenceReader<ElemType>::~SequenceReader()
 template <class ElemType>
 void SequenceReader<ElemType>::ReleaseMemory()
 {
-    if (m_featuresBuffer != NULL)
-        delete[] m_featuresBuffer;
+    delete[] m_featuresBuffer;
     m_featuresBuffer = NULL;
-    if (m_labelsBuffer != NULL)
-        delete[] m_labelsBuffer;
+    delete[] m_labelsBuffer;
     m_labelsBuffer = NULL;
-    if (m_labelsIdBuffer != NULL)
-        delete[] m_labelsIdBuffer;
+    delete[] m_labelsIdBuffer;
     m_labelsIdBuffer = NULL;
     m_featureData.clear();
     m_labelIdData.clear();

@@ -242,17 +242,13 @@ DSSMReader<ElemType>::~DSSMReader()
 template <class ElemType>
 void DSSMReader<ElemType>::ReleaseMemory()
 {
-    if (m_qfeaturesBuffer != NULL)
-        delete[] m_qfeaturesBuffer;
+    delete[] m_qfeaturesBuffer;
     m_qfeaturesBuffer = NULL;
-    if (m_dfeaturesBuffer != NULL)
-        delete[] m_dfeaturesBuffer;
+    delete[] m_dfeaturesBuffer;
     m_dfeaturesBuffer = NULL;
-    if (m_labelsBuffer != NULL)
-        delete[] m_labelsBuffer;
+    delete[] m_labelsBuffer;
     m_labelsBuffer = NULL;
-    if (m_labelsIdBuffer != NULL)
-        delete[] m_labelsIdBuffer;
+    delete[] m_labelsIdBuffer;
     m_labelsIdBuffer = NULL;
     m_featureData.clear();
     m_labelIdData.clear();
