@@ -684,6 +684,7 @@ HTKMLFReader<ElemType>::~HTKMLFReader()
     delete m_uttDerivBuffer;
     m_uttDerivBuffer = NULL;
     
+
     if (!m_featuresBufferMultiIO.empty())
     {
         foreach_index (i, m_featuresBufferMultiIO)
@@ -803,18 +804,24 @@ void HTKMLFReader<ElemType>::StartMinibatchLoopToTrainOrTest(size_t mbSize, size
     {
         foreach_index (i, m_featuresBufferMultiIO)
         {
-            delete[] m_featuresBufferMultiIO[i];
-            m_featuresBufferMultiIO[i] = NULL;
-            m_featuresBufferAllocatedMultiIO[i] = 0;
+            if (m_featuresBufferMultiIO[i] != NULL)
+            {
+                delete[] m_featuresBufferMultiIO[i];
+                m_featuresBufferMultiIO[i] = NULL;
+                m_featuresBufferAllocatedMultiIO[i] = 0;
+            }
         }
     }
     if (!m_labelsBufferMultiIO.empty())
     {
         foreach_index (i, m_labelsBufferMultiIO)
         {
-            delete[] m_labelsBufferMultiIO[i];
-            m_labelsBufferMultiIO[i] = NULL;
-            m_labelsBufferAllocatedMultiIO[i] = 0;
+            if (m_labelsBufferMultiIO[i] != NULL)
+            {
+                delete[] m_labelsBufferMultiIO[i];
+                m_labelsBufferMultiIO[i] = NULL;
+                m_labelsBufferAllocatedMultiIO[i] = 0;
+            }
         }
     }
     m_noData = false;
@@ -822,13 +829,18 @@ void HTKMLFReader<ElemType>::StartMinibatchLoopToTrainOrTest(size_t mbSize, size
     m_labelsStartIndexMultiUtt.assign(m_labelsBufferMultiIO.size() * m_numberOfuttsPerMinibatch, 0);
     for (size_t u = 0; u < m_numberOfuttsPerMinibatch; u++)
     {
-		delete[] m_featuresBufferMultiUtt[u];
-        m_featuresBufferMultiUtt[u] = NULL;
-        m_featuresBufferAllocatedMultiUtt[u] = 0;
-		
-        delete[] m_labelsBufferMultiUtt[u];
-        m_labelsBufferMultiUtt[u] = NULL;
-        m_labelsBufferAllocatedMultiUtt[u] = 0;
+        if (m_featuresBufferMultiUtt[u] != NULL)
+        {
+            delete[] m_featuresBufferMultiUtt[u];
+            m_featuresBufferMultiUtt[u] = NULL;
+            m_featuresBufferAllocatedMultiUtt[u] = 0;
+        }
+        if (m_labelsBufferMultiUtt[u] != NULL)
+        {
+            delete[] m_labelsBufferMultiUtt[u];
+            m_labelsBufferMultiUtt[u] = NULL;
+            m_labelsBufferAllocatedMultiUtt[u] = 0;
+        }
         ReNewBufferForMultiIO(u);
     }
 }
@@ -843,9 +855,12 @@ void HTKMLFReader<ElemType>::StartMinibatchLoopToWrite(size_t mbSize, size_t /*e
 
     foreach_index (i, m_featuresBufferMultiIO)
     {
-        delete[] m_featuresBufferMultiIO[i];
-        m_featuresBufferMultiIO[i] = NULL;
-        m_featuresBufferAllocatedMultiIO[i] = 0;
+        if (m_featuresBufferMultiIO[i] != NULL)
+        {
+            delete[] m_featuresBufferMultiIO[i];
+            m_featuresBufferMultiIO[i] = NULL;
+            m_featuresBufferAllocatedMultiIO[i] = 0;
+        }
     }
 }
 

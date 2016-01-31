@@ -517,7 +517,10 @@ Section::~Section()
     for (auto iter = m_sections.begin(); iter != m_sections.end(); ++iter)
     {
         Section* section = *iter;
-		delete section;
+        // a section that is not mapped is skipped
+        if (section == NULL)
+            continue;
+        delete section;
     }
     m_sections.clear();
 }

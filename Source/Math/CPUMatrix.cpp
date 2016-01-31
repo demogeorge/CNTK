@@ -214,7 +214,7 @@ CPUMatrix<ElemType>& CPUMatrix<ElemType>::operator=(CPUMatrix<ElemType>&& moveFr
 {
     if (this != &moveFrom)
     {
-        if (OwnBuffer())
+        if (OwnBuffer() && m_pArray != nullptr)
             delete[] m_pArray; // always delete the data pointer since we will use the pointer from moveFrom
 
         m_computeDevice = moveFrom.m_computeDevice;
