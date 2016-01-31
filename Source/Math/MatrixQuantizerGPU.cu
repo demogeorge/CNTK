@@ -166,11 +166,8 @@ QuantizedMatrix<ElemType>& MatrixQuantizerGPU<ElemType>::GetTempGPUQuantizedMatr
         return *m_tempGPUQuantizedMatrix;
     }
 
-    if (m_tempGPUQuantizedMatrix != nullptr)
-    {
-        delete m_tempGPUQuantizedMatrix;
-        m_tempGPUQuantizedMatrix = nullptr;
-    }
+    delete m_tempGPUQuantizedMatrix;
+    m_tempGPUQuantizedMatrix = nullptr;
 
     m_tempGPUQuantizedMatrix = new QuantizedMatrix<ElemType>(numRows, numCols, nBits, (short) this->GetDeviceId());
     newlyAllocated = true;
@@ -209,11 +206,8 @@ MatrixQuantizerGPU<ElemType>::MatrixQuantizerGPU(int deviceId, bool useDedicated
 template <class ElemType>
 MatrixQuantizerGPU<ElemType>::~MatrixQuantizerGPU()
 {
-    if (nullptr != m_tempGPUQuantizedMatrix)
-    {
-        delete m_tempGPUQuantizedMatrix;
-        m_tempGPUQuantizedMatrix = nullptr;
-    }
+    delete m_tempGPUQuantizedMatrix;
+    m_tempGPUQuantizedMatrix = nullptr;
 
     // BUGBUG: we don't destroy our streams (they are static variables); we need a static destructor, I am too lazy now
     cudaEventDestroy(m_assignCompleteEvent);

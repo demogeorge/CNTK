@@ -730,10 +730,7 @@ void LibSVMBinaryReader<ElemType>::StartDistributedMinibatchLoop(size_t mbSize, 
     m_epoch = epoch;
     m_mbSize = mbSize;
 #if DEBUG
-    if (reader_series != NULL)
-    {
-        delete reader_series;
-    }
+    delete reader_series;
     reader_series = new marker_series(L"Base Reader");
     cur_read = 0;
 #endif

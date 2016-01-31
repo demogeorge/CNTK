@@ -214,7 +214,7 @@ CPUMatrix<ElemType>& CPUMatrix<ElemType>::operator=(CPUMatrix<ElemType>&& moveFr
 {
     if (this != &moveFrom)
     {
-        if (OwnBuffer() && m_pArray != nullptr)
+        if (OwnBuffer())
             delete[] m_pArray; // always delete the data pointer since we will use the pointer from moveFrom
 
         m_computeDevice = moveFrom.m_computeDevice;
@@ -240,7 +240,7 @@ CPUMatrix<ElemType>::~CPUMatrix()
 template <class ElemType>
 void CPUMatrix<ElemType>::Clear()
 {
-    if (m_pArray != nullptr && OwnBuffer())
+    if (OwnBuffer())
     {
         delete[] m_pArray;
         m_pArray = nullptr;
